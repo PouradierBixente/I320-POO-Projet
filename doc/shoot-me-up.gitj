@@ -46,6 +46,36 @@
       "description": "- cahier des charges\r\n- Outil à disposition\r\n- Handbook",
       "duration": 105,
       "status": "Done"
+    },
+    {
+      "id": "eba32205-bfa7-471e-8792-5fc0794ce437",
+      "type": "commitless",
+      "author": "PouradierBixente",
+      "date": "2026-08-28T14:24:00.000Z",
+      "name": "fix(gitjournal): récuperation des commit impossible",
+      "description": "",
+      "duration": 10,
+      "status": "in progress"
+    },
+    {
+      "id": "0a9c0b0e-5398-462d-9b05-d1928f7f0828",
+      "type": "commitless",
+      "author": "PouradierBixente",
+      "date": "2026-08-28T14:25:00.000Z",
+      "name": "feat(git): cree le répo",
+      "description": "",
+      "duration": 5,
+      "status": "Done"
+    },
+    {
+      "id": "81e0e49f-1352-44e8-b83a-6554c63b043a",
+      "type": "commitless",
+      "author": "PouradierBixente",
+      "date": "2026-08-28T14:29:00.000Z",
+      "name": "chore(theme): choisir un theme pour le projet",
+      "description": "",
+      "duration": 30,
+      "status": "Done"
     }
   ]
 }
