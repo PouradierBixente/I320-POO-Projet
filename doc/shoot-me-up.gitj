@@ -1,0 +1,51 @@
+{
+  "projectName": "Shoot Me Up",
+  "me": "PouradierBixente",
+  "journalStartDate": "2026-08-28T11:10:00.000Z",
+  "columns": [
+    {
+      "label": "Date",
+      "source": "date",
+      "format": "date",
+      "field": "date"
+    },
+    {
+      "label": "Tâche",
+      "source": "name",
+      "field": "name"
+    },
+    {
+      "label": "Description",
+      "source": "description",
+      "field": "description"
+    },
+    {
+      "label": "Durée",
+      "source": "duration",
+      "format": "duration",
+      "field": "duration"
+    },
+    {
+      "label": "Statut",
+      "source": "status",
+      "format": "badge",
+      "field": "status"
+    },
+    {
+      "label": "Auteur",
+      "source": "author"
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "af6fafb3-7d01-4740-ba43-656e59df5dd1",
+      "type": "commitless",
+      "author": "PouradierBixente",
+      "date": "2026-08-28T14:04:00.000Z",
+      "name": "meet(information projet): information utile à notre lancement dans le projet",
+      "description": "- cahier des charges\r\n- Outil à disposition\r\n- Handbook",
+      "duration": 105,
+      "status": "Done"
+    }
+  ]
+}
