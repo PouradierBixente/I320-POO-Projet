@@ -55,7 +55,7 @@
       "name": "fix(gitjournal): récuperation des commit impossible",
       "description": "",
       "duration": 10,
-      "status": "in progress"
+      "status": "Done"
     },
     {
       "id": "0a9c0b0e-5398-462d-9b05-d1928f7f0828",
@@ -64,7 +64,7 @@
       "date": "2026-08-28T14:25:00.000Z",
       "name": "feat(git): cree le répo",
       "description": "",
-      "duration": 5,
+      "duration": 10,
       "status": "Done"
     },
     {
@@ -75,6 +75,42 @@
       "name": "chore(theme): choisir un theme pour le projet",
       "description": "",
       "duration": 30,
+      "status": "Done"
+    },
+    {
+      "id": "6bfc8805-2bc5-4fd3-8b6c-64ab648f9536",
+      "type": "commitpatch",
+      "sha": "369927f626d7a7b41eec4d891a8967bf2ec1def3",
+      "url": "https://github.com/PouradierBixente/I320-POO-Projet/commit/369927f626d7a7b41eec4d891a8967bf2ec1def3",
+      "author": "Bixente Pouradier",
+      "patch": true,
+      "date": "2026-09-04T12:16:00.000Z",
+      "name": "chore(rapport): Rediger l'introduction du rapport",
+      "description": "",
+      "duration": 45,
+      "status": "Done"
+    },
+    {
+      "id": "d0b9a38f-1f62-45d8-8c7e-d819ee49b6dc",
+      "type": "commitpatch",
+      "sha": "3328c58fd54d813abc00ce8031d1448d8786c0b2",
+      "url": "https://github.com/PouradierBixente/I320-POO-Projet/commit/3328c58fd54d813abc00ce8031d1448d8786c0b2",
+      "author": "Bixente Pouradier",
+      "patch": true,
+      "date": "2026-08-28T14:31:00.000Z",
+      "name": "chore(jdt): Mettre les informations possible à la main",
+      "description": "",
+      "duration": 35,
+      "status": "Done"
+    },
+    {
+      "id": "590c0e9c-34ec-47ff-8232-1fe584c4b570",
+      "type": "commitless",
+      "author": "Bixente Pouradier",
+      "date": "2026-09-04T13:43:00.000Z",
+      "name": "chore(US): Faires les users story",
+      "description": "",
+      "duration": 80,
       "status": "Done"
     }
   ]
