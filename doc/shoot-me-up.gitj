@@ -112,6 +112,16 @@
       "description": "",
       "duration": 80,
       "status": "Done"
+    },
+    {
+      "id": "26e18f76-1c32-4753-908d-2aca6dee921a",
+      "type": "commitless",
+      "author": "Bixente Pouradier",
+      "date": "2026-09-04T14:19:00.000Z",
+      "name": "chore(jdt): Completer le jdt",
+      "description": "",
+      "duration": 5,
+      "status": "Done"
     }
   ]
 }
