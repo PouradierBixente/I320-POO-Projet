@@ -1,12 +1,11 @@
-﻿using Drones.Helpers;
-using Drones.Properties;
+﻿using ShootEmUp.Helpers;
+using ShootEmUp.Properties;
 
-namespace Drones
+namespace Player
 {
     // Cette partie de la classe Drone définit ce qu'est un drone par un modèle numérique
-    public class Drone
+    public class Player
     {
-        public int charge;                            // La charge actuelle de la batterie
         public string name;                           // Un nom
         public int x;                                 // Position en X depuis la gauche de l'espace aérien
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
@@ -16,13 +15,12 @@ namespace Drones
         private Random _alea = new Random();
 
         // Constructeur
-        public Drone(int x, int y, string name)
+        public Player(int x, int y, string name)
         {
             Random alea = new Random();
             this.x = x;
             this.y = y;
             this.name = name;
-            charge = alea.Next(1000); // La charge initiale de la batterie est choisie aléatoirement
             ChangeDirection();
         }
 
@@ -32,7 +30,6 @@ namespace Drones
         {
             x += speed_x;   
             y += speed_y;
-            charge--;
         }
 
         // Choisit une nouvelle vitesse aléatoirement
@@ -62,7 +59,7 @@ namespace Drones
         // De manière textuelle
         public override string ToString()
         {
-            return $"{name} ({((int)((double)charge / 1000 * 100)).ToString()}%)";
+            return $"{name}";
         }
 
 

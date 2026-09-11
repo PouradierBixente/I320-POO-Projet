@@ -1,4 +1,4 @@
-namespace Drones
+namespace Player
 {
     // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
     // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
@@ -10,13 +10,13 @@ namespace Drones
         public static readonly int HEIGHT = 600;
 
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
-        private Drone _player;
+        private Player _player;
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics airspace;
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public AirSpace(Drone player)
+        public AirSpace(Player player)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);

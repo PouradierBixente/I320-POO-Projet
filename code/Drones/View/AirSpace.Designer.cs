@@ -1,4 +1,4 @@
-﻿namespace Drones
+﻿namespace Player
 {
     partial class AirSpace
     {
