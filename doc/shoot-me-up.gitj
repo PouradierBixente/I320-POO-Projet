@@ -157,16 +157,6 @@
       "status": "Done"
     },
     {
-      "id": "a7cdc9d4-7544-4a3e-9092-d9644f550a0c",
-      "type": "commitless",
-      "author": "Bixente Pouradier",
-      "date": "2026-09-11T14:30:00.000Z",
-      "name": "fix(code): changer ce qui concerne le drone en rapport avec mon thème.",
-      "description": "",
-      "duration": 42,
-      "status": "In Progresse"
-    },
-    {
       "id": "83e52eb6-4bf8-4cba-81fa-613bb5bb22d8",
       "type": "commitless",
       "author": "Bixente Pouradier",
@@ -175,6 +165,19 @@
       "description": "",
       "duration": 5,
       "status": "Done"
+    },
+    {
+      "id": "7aa0ee0f-f46c-4982-bdb5-096af19b087b",
+      "type": "commitpatch",
+      "sha": "6220f451ca59845f3bc066feea04afbd0a7a8f61",
+      "url": "https://github.com/PouradierBixente/I320-POO-Projet/commit/6220f451ca59845f3bc066feea04afbd0a7a8f61",
+      "author": "Bixente Pouradier",
+      "patch": true,
+      "date": "2026-09-11T14:33:00.000Z",
+      "name": "fix(code): changer ce qui concerne le drone en des choses en raport avec mon thème.",
+      "description": "",
+      "duration": 42,
+      "status": "In Progresse"
     }
   ]
 }
