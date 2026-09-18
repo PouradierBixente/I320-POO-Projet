@@ -10,7 +10,7 @@ namespace Player
         public static readonly int HEIGHT = 600;
 
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
-        private Player _player;
+        public Player _player;
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics airspace;
@@ -52,12 +52,16 @@ namespace Player
             this.Render();
         }
 
-        private void AirSpace_KeyDown(object sender, KeyEventArgs e)
+        public void AirSpace_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
-                case Keys.Space:
-                    _player.ChangeDirection();
+                case Keys.Right:
+                    _player.ChangeDirection(true);
+                    break;
+
+                case Keys.Left:
+                    _player.ChangeDirection(false);
                     break;
             }
         }

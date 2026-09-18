@@ -13,7 +13,7 @@ namespace Player
             ApplicationConfiguration.Initialize();
 
             // Démarrage
-            Application.Run(new AirSpace(new Player(AirSpace.WIDTH / 2, AirSpace.HEIGHT / 2, "Joe")));
+            Application.Run(new AirSpace(new Player(AirSpace.WIDTH / 2, AirSpace.HEIGHT - 50, "Joe")));
         }
     }
 }
