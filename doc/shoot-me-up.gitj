@@ -191,6 +191,19 @@
       "description": "",
       "duration": 60,
       "status": "Done"
+    },
+    {
+      "id": "1216af82-22a9-4306-be0d-ee44d0aa115b",
+      "type": "commitpatch",
+      "sha": "0bf9213b407c19891300d714d49d58dd993b4104",
+      "url": "https://github.com/PouradierBixente/I320-POO-Projet/commit/0bf9213b407c19891300d714d49d58dd993b4104",
+      "author": "Bixente Pouradier",
+      "patch": true,
+      "date": "2026-09-18T13:07:00.000Z",
+      "name": "feat(code): mettre en place la zone delimité pour empêcher le déplacement du joueur hors de la zone de jeu",
+      "description": "",
+      "duration": 45,
+      "status": "Done"
     }
   ]
 }

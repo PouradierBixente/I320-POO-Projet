@@ -28,7 +28,7 @@ namespace ShootEmUp
         // Déplacement
         public void ChangeDirection(bool side)
         {
-            int space = AirSpace.WIDTH - Config.PLAYER_SIZE;
+            int space = GameSpace.WIDTH - Config.PLAYER_SIZE;
             x += side ? 10 : -10;
             x = (x + space) % space;
         }

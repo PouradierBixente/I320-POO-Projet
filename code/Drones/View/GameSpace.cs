@@ -4,7 +4,7 @@ namespace ShootEmUp
     // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
     // Il n'y a donc pas de notion d'altitude qui intervient
 
-    public partial class AirSpace : Form
+    public partial class GameSpace : Form
     {
         public static readonly int WIDTH = 1920;        // Dimensions of the airspace
         public static readonly int HEIGHT = 1080;
@@ -16,7 +16,7 @@ namespace ShootEmUp
         BufferedGraphics airspace;
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public AirSpace(Player player)
+        public GameSpace(Player player)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
