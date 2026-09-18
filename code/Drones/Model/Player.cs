@@ -3,13 +3,12 @@ using ShootEmUp.Properties;
 
 namespace ShootEmUp
 {
-    // Cette partie de la classe Drone définit ce qu'est un drone par un modèle numérique
+    // Cette partie de la classe Player définit ce qu'est un modèle numérique du joueur
     public class Player
     {
         public string name;                           // Un nom
         public int x;                                 // Position en X depuis la gauche de l'espace aérien
-        public int y;                                 // Position en Y depuis le haut de l'espace aérien
-        public int speed_x = 0;                       // Déplacement horizontal
+        public int y = GameSpace.HEIGHT - 150;                                 // Position en Y depuis le haut de l'espace aérien
 
         // Constructeur
         public Player(int x, int y, string name)
@@ -19,7 +18,7 @@ namespace ShootEmUp
             this.name = name;
         }
 
-        // Cette méthode calcule le nouvel état dans lequel le drone se trouve après
+        // Cette méthode calcule le nouvel état dans lequel le joueur se trouve après
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval)
         {  
@@ -33,17 +32,7 @@ namespace ShootEmUp
             x = (x + space) % space;
         }
 
-        
-
-        /// //////////////////////////////////////////////////////////////////////////////
-        //  
-        //  Ce qui suit appartient à la vue, pas au modèle.
-        //  Il aurait été préférable de séparer la déclaration de la classe Drone en deux,
-        //  Nous regroupons tout ici pour simplifier
-        //  
-        /// //////////////////////////////////////////////////////////////////////////////
-
-        private Pen droneBrush = new Pen(new SolidBrush(Color.Purple), 3);
+        private Pen playerBrush = new Pen(new SolidBrush(Color.Purple), 3);
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
@@ -57,7 +46,5 @@ namespace ShootEmUp
         {
             return $"{name}";
         }
-
-
     }
 }

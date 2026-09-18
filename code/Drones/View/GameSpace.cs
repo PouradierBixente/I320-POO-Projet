@@ -1,22 +1,23 @@
 namespace ShootEmUp
 {
-    // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
+    // La classe gamespace représente le territoire au dessus duquel les player peuvent voler
     // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
     // Il n'y a donc pas de notion d'altitude qui intervient
 
     public partial class GameSpace : Form
     {
-        public static readonly int WIDTH = 1920;        // Dimensions of the airspace
+        public static readonly int WIDTH = 1920;        // Dimensions of the gamespace
         public static readonly int HEIGHT = 1080;
 
-        // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
+        // La flotte est l'ensemble des player qui évoluent dans notre espace aérien
         public Player _player;
+        public Tir _tir;
 
         BufferedGraphicsContext currentContext;
-        BufferedGraphics airspace;
+        BufferedGraphics gamespace;
 
-        // Initialisation de l'espace aérien avec un certain nombre de drones
-        public GameSpace(Player player)
+        // Initialisation de l'espace aérien avec un certain nombre de player
+        public GameSpace(Player player, Tir tir)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
@@ -25,18 +26,20 @@ namespace ShootEmUp
             currentContext = BufferedGraphicsManager.Current;
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
-            airspace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
+            gamespace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             this._player = player;
+            this._tir = tir;
         }
 
         // Affichage de la situation actuelle
         private void Render()
         {
-            airspace.Graphics.Clear(Color.AliceBlue);
+            gamespace.Graphics.Clear(Color.AliceBlue);
 
-            _player.Render(airspace);
+            _player.Render(gamespace);
+            _tir.Render(gamespace);
 
-            airspace.Render();
+            gamespace.Render();
         }
 
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
@@ -52,7 +55,7 @@ namespace ShootEmUp
             this.Render();
         }
 
-        public void AirSpace_KeyDown(object sender, KeyEventArgs e)
+        public void gamespace_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
