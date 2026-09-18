@@ -1,7 +1,7 @@
 ﻿using ShootEmUp.Helpers;
 using ShootEmUp.Properties;
 
-namespace Player
+namespace ShootEmUp
 {
     // Cette partie de la classe Drone définit ce qu'est un drone par un modèle numérique
     public class Player
@@ -9,7 +9,7 @@ namespace Player
         public string name;                           // Un nom
         public int x;                                 // Position en X depuis la gauche de l'espace aérien
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
-        public int speed_x = 0;                           // Déplacement horizontal
+        public int speed_x = 0;                       // Déplacement horizontal
 
         // Constructeur
         public Player(int x, int y, string name)
@@ -28,10 +28,9 @@ namespace Player
         // Déplacement
         public void ChangeDirection(bool side)
         {
-            if (side == true)
-                x++;
-            if (side == false)
-                x--;
+            int space = AirSpace.WIDTH - Config.PLAYER_SIZE;
+            x += side ? 10 : -10;
+            x = (x + space) % space;
         }
 
         
@@ -49,7 +48,7 @@ namespace Player
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawImage(Resources.player, x, y, 50, 50);
+            drawingSpace.Graphics.DrawImage(Resources.player, x, y, Config.PLAYER_SIZE, Config.PLAYER_SIZE);
             drawingSpace.Graphics.DrawString($"{this}", TextHelpers.drawFont, TextHelpers.writingBrush, x + 5, y - 25);
         }
 

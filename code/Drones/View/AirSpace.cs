@@ -1,4 +1,4 @@
-namespace Player
+namespace ShootEmUp
 {
     // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
     // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
@@ -6,8 +6,8 @@ namespace Player
 
     public partial class AirSpace : Form
     {
-        public static readonly int WIDTH = 1200;        // Dimensions of the airspace
-        public static readonly int HEIGHT = 600;
+        public static readonly int WIDTH = 1920;        // Dimensions of the airspace
+        public static readonly int HEIGHT = 1080;
 
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         public Player _player;

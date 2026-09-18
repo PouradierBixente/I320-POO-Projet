@@ -177,7 +177,20 @@
       "name": "fix(code): changer ce qui concerne le drone en des choses en raport avec mon thème.",
       "description": "",
       "duration": 42,
-      "status": "In Progresse"
+      "status": "Done"
+    },
+    {
+      "id": "f853eb46-b5ed-422e-b1df-5274175bc025",
+      "type": "commitpatch",
+      "sha": "5a4f7ab9ff0ef8ac7f52f0cd9f5e5192206dcb03",
+      "url": "https://github.com/PouradierBixente/I320-POO-Projet/commit/5a4f7ab9ff0ef8ac7f52f0cd9f5e5192206dcb03",
+      "author": "Bixente Pouradier",
+      "patch": true,
+      "date": "2026-09-18T12:09:00.000Z",
+      "name": "feat(code): créé la fonction permetant le déplacement",
+      "description": "",
+      "duration": 60,
+      "status": "Done"
     }
   ]
 }
