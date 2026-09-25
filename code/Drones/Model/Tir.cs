@@ -13,16 +13,13 @@ namespace ShootEmUp
         private const int SPEED = 10;
         public int x;
         public int y;
-        public Player _player;
 
-
+        // Constructeur
         public Tir(int x, int y)
         {
-            this.y = _player.y - 100;
-            this.x = _player.x;
+            this.x = x;
+            this.y = y;
         }
-
-
 
         public void Render(BufferedGraphics drawingSpace)
         {

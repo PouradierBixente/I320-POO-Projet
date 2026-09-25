@@ -11,13 +11,13 @@ namespace ShootEmUp
 
         // La flotte est l'ensemble des player qui évoluent dans notre espace aérien
         public Player _player;
-        public Tir _tir;
+        public List<Tir> tirs = new List<Tir>();
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics gamespace;
 
         // Initialisation de l'espace aérien avec un certain nombre de player
-        public GameSpace(Player player, Tir tir)
+        public GameSpace(Player player)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
@@ -28,7 +28,6 @@ namespace ShootEmUp
             // dimensions the same size as the drawing surface of the form.
             gamespace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             this._player = player;
-            this._tir = tir;
         }
 
         // Affichage de la situation actuelle
@@ -37,7 +36,11 @@ namespace ShootEmUp
             gamespace.Graphics.Clear(Color.AliceBlue);
 
             _player.Render(gamespace);
-            _tir.Render(gamespace);
+
+            foreach (Tir tir in tirs)
+            {
+                tir.Render(gamespace);
+            }
 
             gamespace.Render();
         }
@@ -46,6 +49,10 @@ namespace ShootEmUp
         private void Update(int interval)
         {
             _player.Update(interval);
+            foreach (Tir tir in tirs)
+            {
+                tir.y = tir.y - 5;
+            }
         }
 
         // Méthode appelée à chaque frame
@@ -53,6 +60,7 @@ namespace ShootEmUp
         {
             this.Update(ticker.Interval);
             this.Render();
+            Addshoot();
         }
 
         public void gamespace_KeyDown(object sender, KeyEventArgs e)
@@ -61,12 +69,23 @@ namespace ShootEmUp
             {
                 case Keys.Right:
                     _player.ChangeDirection(true);
+     
                     break;
 
                 case Keys.Left:
                     _player.ChangeDirection(false);
+    
                     break;
             }
+        }
+
+        public void Addshoot()
+        {
+            if (_player.timenomove <= 0)
+            {
+                tirs.Add(_player.shoot());
+                _player.timenomove = Player.COOLDOWN;
+            }   
         }
     }
 }

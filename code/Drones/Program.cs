@@ -13,7 +13,7 @@ namespace ShootEmUp
             ApplicationConfiguration.Initialize();
 
             // Démarrage
-            Application.Run(new GameSpace(new Player(GameSpace.WIDTH / 2, GameSpace.HEIGHT - 150, "Joe"), new Tir(GameSpace.WIDTH / 2, GameSpace.HEIGHT - 150)));
+            Application.Run(new GameSpace(new Player(GameSpace.WIDTH / 2, GameSpace.HEIGHT - 150, "Joe")));
         }
     }
 }

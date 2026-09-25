@@ -1,6 +1,6 @@
 {
   "projectName": "Shoot Me Up",
-  "me": "Bixente Pouradier",
+  "me": ["Bixente Pouradier", "PouradierBixente"],
   "journalStartDate": "2026-08-28T11:10:00.000Z",
   "columns": [
     {
@@ -204,6 +204,19 @@
       "description": "",
       "duration": 45,
       "status": "Done"
+    },
+    {
+      "id": "b73868b8-9242-4a3f-850b-81103a1b5fa5",
+      "type": "commitpatch",
+      "sha": "b02d146c23f63ebd892d0c76bd46d4225ec82a27",
+      "url": "https://github.com/PouradierBixente/I320-POO-Projet/commit/b02d146c23f63ebd892d0c76bd46d4225ec82a27",
+      "author": "Bixente Pouradier",
+      "patch": true,
+      "date": "2026-09-18T14:32:00.000Z",
+      "name": "feat(code): commencer à créer les tirs",
+      "description": "",
+      "duration": 87,
+      "status": "In Progress"
     }
   ]
 }
