@@ -10,14 +10,15 @@ namespace ShootEmUp
         public static readonly int HEIGHT = 1080;
 
         // La flotte est l'ensemble des player qui évoluent dans notre espace aérien
-        public Player _player;
-        public List<Tir> tirs = new List<Tir>();
+        private Player _player;
+        private List<Tir> tirs = new List<Tir>();
+        private List<Ennemie> ennemies = new List<Ennemie>(); 
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics gamespace;
 
         // Initialisation de l'espace aérien avec un certain nombre de player
-        public GameSpace(Player player)
+        public GameSpace(Player player, List<Ennemie> ennemies)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
@@ -28,6 +29,7 @@ namespace ShootEmUp
             // dimensions the same size as the drawing surface of the form.
             gamespace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             this._player = player;
+            this.ennemies = ennemies;
         }
 
         // Affichage de la situation actuelle
@@ -36,6 +38,11 @@ namespace ShootEmUp
             gamespace.Graphics.Clear(Color.AliceBlue);
 
             _player.Render(gamespace);
+
+            foreach (Ennemie ennemie in ennemies)
+            {
+                ennemie.Render(gamespace);
+            }
 
             foreach (Tir tir in tirs)
             {
@@ -52,6 +59,11 @@ namespace ShootEmUp
             foreach (Tir tir in tirs)
             {
                 tir.y = tir.y - 5;
+            }
+
+            foreach (Ennemie ennemie in ennemies)
+            {
+                ennemie.Update(interval);
             }
         }
 

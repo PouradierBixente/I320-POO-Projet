@@ -9,5 +9,6 @@ namespace ShootEmUp
      public static class Config
     {
         public const int PLAYER_SIZE = 90;
+        public const int ENNEMIE_SIZE = 100;
     }
 }
