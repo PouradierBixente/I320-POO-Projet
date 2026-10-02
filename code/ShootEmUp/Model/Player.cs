@@ -43,8 +43,8 @@ namespace ShootEmUp
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawImage(Resources.player, x, y, Config.PLAYER_SIZE, Config.PLAYER_SIZE);
-            drawingSpace.Graphics.DrawString($"{this}", TextHelpers.drawFont, TextHelpers.writingBrush, x + 5, y - 25);
+            drawingSpace.Graphics.DrawImage(Resources.player, x - Config.PLAYER_SIZE/2, y - Config.PLAYER_SIZE / 2, Config.PLAYER_SIZE, Config.PLAYER_SIZE);
+            drawingSpace.Graphics.DrawString($"{this}", TextHelpers.drawFont, TextHelpers.writingBrush, x + 5, y - 15);
         }
 
         // De manière textuelle

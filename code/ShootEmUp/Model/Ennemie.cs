@@ -60,10 +60,10 @@ namespace ShootEmUp
         public void Render(BufferedGraphics drawingSpace)
         {
             if (state == State.RIGHT)
-                drawingSpace.Graphics.DrawImage(Resources.EnnmieMouvementDroite, x, y, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
+                drawingSpace.Graphics.DrawImage(Resources.EnnmieMouvementDroite, x - Config.ENNEMIE_SIZE / 2, y - Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
             
             if (state == State.LEFT)
-                drawingSpace.Graphics.DrawImage(Resources.EnnemieMouvementGauche, x, y, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
+                drawingSpace.Graphics.DrawImage(Resources.EnnemieMouvementGauche, x - Config.ENNEMIE_SIZE / 2, y - Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
         }
 
         public Tir shoot()

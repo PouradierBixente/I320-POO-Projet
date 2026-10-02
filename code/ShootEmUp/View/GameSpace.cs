@@ -56,13 +56,29 @@ namespace ShootEmUp
         private void Update(int interval)
         {
             _player.Update(interval);
+
+            for (int i = tirs.Count - 1; i >= 0; i--)
+            {
+                tirs[i].Update();
+                if (tirs[i].explode)
+                    tirs.RemoveAt(i);
+            }
+
             foreach (Tir tir in tirs)
             {
-                if(tir.type == 1)
-                    tir.y = tir.y - 5;
-                if (tir.type == 2)
-                    tir.y = tir.y + 5;
+                foreach (Tir tir2 in tirs)
+                {
+                    if (tir != tir2)
+                    {
+                        if (MathHelpers.Distance(tir.x, tir.y, tir2.x, tir2.y) <= 10)
+                        {
+                            tir.explode = true;
+                            tir2.explode = true;
+                        }
+                    }
+                }
             }
+
 
             foreach (Ennemie ennemie in ennemies)
             {

@@ -14,6 +14,7 @@ namespace ShootEmUp
         public int x;
         public int y;
         public int type;
+        public bool explode = false;
 
         // Constructeur
         public Tir(int x, int y, int type)
@@ -23,12 +24,21 @@ namespace ShootEmUp
             this.type = type;
         }
 
+        public void Update()
+        {
+            if (type == 1)
+                y -= 5;
+            if (type == 2)
+                y += 5;
+        }
         public void Render(BufferedGraphics drawingSpace)
         {
             if(type == 1)
-                drawingSpace.Graphics.DrawImage(Resources.playerShoot, x, y, 70, 70);
+                drawingSpace.Graphics.DrawImage(Resources.playerShoot, x- Config.SHOOT_SIZE/2, y - Config.SHOOT_SIZE / 2, Config.SHOOT_SIZE, Config.SHOOT_SIZE);
             if (type == 2)
-                drawingSpace.Graphics.DrawImage(Resources.TirEnnemie, x, y, 70, 70);
+                drawingSpace.Graphics.DrawImage(Resources.TirEnnemie, x- Config.SHOOT_SIZE / 2, y - Config.SHOOT_SIZE / 2, Config.SHOOT_SIZE, Config.SHOOT_SIZE);
+            if (explode)
+                drawingSpace.Graphics.DrawImage(Resources.player, x - Config.SHOOT_SIZE / 2, y - Config.SHOOT_SIZE / 2, Config.SHOOT_SIZE, Config.SHOOT_SIZE);
         }
     }
 }
