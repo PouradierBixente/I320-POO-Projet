@@ -6,7 +6,7 @@ namespace ShootEmUp
     // Cette partie de la classe Player définit ce qu'est un modèle numérique du joueur
     public class Player
     {
-        public const int COOLDOWN = 10; 
+        public const int COOLDOWN = 20; 
         public string name;                           // Un nom
         public int x;                                 // Position en X depuis la gauche de l'espace aérien
         public int y;                               // Position en Y depuis le haut de l'espace aérien
@@ -55,7 +55,7 @@ namespace ShootEmUp
 
         public Tir shoot()
         {
-            Tir tir = new Tir(x, y);
+            Tir tir = new Tir(x, y, 1);
             return tir;
             
         }

@@ -58,7 +58,10 @@ namespace ShootEmUp
             _player.Update(interval);
             foreach (Tir tir in tirs)
             {
-                tir.y = tir.y - 5;
+                if(tir.type == 1)
+                    tir.y = tir.y - 5;
+                if (tir.type == 2)
+                    tir.y = tir.y + 5;
             }
 
             foreach (Ennemie ennemie in ennemies)
@@ -97,7 +100,16 @@ namespace ShootEmUp
             {
                 tirs.Add(_player.shoot());
                 _player.timenomove = Player.COOLDOWN;
-            }   
+            }
+
+            foreach (Ennemie ennemie in ennemies)
+            {
+                if (ennemie.timecooldown <= 0)
+                {
+                    tirs.Add(ennemie.shoot());
+                    ennemie.timecooldown = Ennemie.COOLDOWN;
+                }
+            }
         }
     }
 }

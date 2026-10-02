@@ -13,17 +13,22 @@ namespace ShootEmUp
         private const int SPEED = 10;
         public int x;
         public int y;
+        public int type;
 
         // Constructeur
-        public Tir(int x, int y)
+        public Tir(int x, int y, int type)
         {
             this.x = x;
             this.y = y;
+            this.type = type;
         }
 
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawImage(Resources.playerShoot, x, y, 70, 70);
+            if(type == 1)
+                drawingSpace.Graphics.DrawImage(Resources.playerShoot, x, y, 70, 70);
+            if (type == 2)
+                drawingSpace.Graphics.DrawImage(Resources.TirEnnemie, x, y, 70, 70);
         }
     }
 }

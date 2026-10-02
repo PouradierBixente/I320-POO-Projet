@@ -9,11 +9,14 @@ namespace ShootEmUp
 {
     public class Ennemie
     {
+        public const int COOLDOWN = 30;
         private const int SPEED = 10;
         public int x;
         public int y;
         public State state = State.RIGHT;
-        
+        public int timecooldown = COOLDOWN;
+
+
         public enum State { RIGHT, LEFT }
 
         // Constructeur
@@ -25,6 +28,9 @@ namespace ShootEmUp
 
         public void Update(int interval)
         {
+            timecooldown--;
+            if (timecooldown <= 0)
+                shoot();
             int space = GameSpace.WIDTH - Config.ENNEMIE_SIZE;
             
             
@@ -58,6 +64,13 @@ namespace ShootEmUp
             
             if (state == State.LEFT)
                 drawingSpace.Graphics.DrawImage(Resources.EnnemieMouvementGauche, x, y, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
+        }
+
+        public Tir shoot()
+        {
+            Tir tir = new Tir(x, y, 2);
+            return tir;
+
         }
 
     }
