@@ -63,9 +63,19 @@ namespace ShootEmUp.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ennemie {
+        internal static System.Drawing.Bitmap EnnemieMouvementGauche {
             get {
-                object obj = ResourceManager.GetObject("ennemie", resourceCulture);
+                object obj = ResourceManager.GetObject("EnnemieMouvementGauche", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EnnmieMouvementDroite {
+            get {
+                object obj = ResourceManager.GetObject("EnnmieMouvementDroite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

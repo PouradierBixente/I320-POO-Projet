@@ -54,10 +54,10 @@ namespace ShootEmUp
         public void Render(BufferedGraphics drawingSpace)
         {
             if (state == State.RIGHT)
-                drawingSpace.Graphics.DrawImage(Resources.ennemie, x, y, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
+                drawingSpace.Graphics.DrawImage(Resources.EnnmieMouvementDroite, x, y, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
             
-            //if (state == State.LEFT)
-              //  drawingSpace.Graphics.DrawImage(Resources.ennemie.RotateFlip(RotateFlipType.Rotate180FlipX), x, y, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
+            if (state == State.LEFT)
+                drawingSpace.Graphics.DrawImage(Resources.EnnemieMouvementGauche, x, y, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
         }
 
     }
