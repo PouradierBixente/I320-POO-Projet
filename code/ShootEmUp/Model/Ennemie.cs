@@ -68,7 +68,7 @@ namespace ShootEmUp
 
         public Tir shoot()
         {
-            Tir tir = new Tir(x, y, 2);
+            Tir tir = new Tir(x, y + Config.ENNEMIE_SIZE / 2, 2);
             return tir;
 
         }

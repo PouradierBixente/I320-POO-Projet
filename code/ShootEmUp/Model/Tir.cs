@@ -15,6 +15,7 @@ namespace ShootEmUp
         public int y;
         public int type;
         public bool explode = false;
+        public bool outofspace => y < -Config.SHOOT_SIZE && y > GameSpace.HEIGHT;
 
         // Constructeur
         public Tir(int x, int y, int type)
@@ -38,7 +39,7 @@ namespace ShootEmUp
             if (type == 2)
                 drawingSpace.Graphics.DrawImage(Resources.TirEnnemie, x- Config.SHOOT_SIZE / 2, y - Config.SHOOT_SIZE / 2, Config.SHOOT_SIZE, Config.SHOOT_SIZE);
             if (explode)
-                drawingSpace.Graphics.DrawImage(Resources.player, x - Config.SHOOT_SIZE / 2, y - Config.SHOOT_SIZE / 2, Config.SHOOT_SIZE, Config.SHOOT_SIZE);
+                drawingSpace.Graphics.DrawImage(Resources.ExplosionTir, x - Config.SHOOT_SIZE, y - Config.SHOOT_SIZE , Config.SHOOT_SIZE * 2, Config.SHOOT_SIZE * 2);
         }
     }
 }

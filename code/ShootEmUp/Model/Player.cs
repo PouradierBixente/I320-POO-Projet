@@ -7,17 +7,17 @@ namespace ShootEmUp
     public class Player
     {
         public const int COOLDOWN = 20; 
-        public string name;                           // Un nom
+        public int vieplayer;                           // Un nom
         public int x;                                 // Position en X depuis la gauche de l'espace aérien
         public int y;                               // Position en Y depuis le haut de l'espace aérien
         public int timenomove = COOLDOWN;
 
         // Constructeur
-        public Player(int x, int y, string name)
+        public Player(int x, int y)
         {
             this.x = x;
             this.y = y;
-            this.name = name;
+            this.vieplayer = 3;
         }
 
         // Cette méthode calcule le nouvel état dans lequel le joueur se trouve après
@@ -50,12 +50,12 @@ namespace ShootEmUp
         // De manière textuelle
         public override string ToString()
         {
-            return $"{name}";
+            return $"{vieplayer}";
         }
 
         public Tir shoot()
         {
-            Tir tir = new Tir(x, y, 1);
+            Tir tir = new Tir(x, y - Config.PLAYER_SIZE / 2, 1);
             return tir;
             
         }

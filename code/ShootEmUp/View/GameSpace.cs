@@ -60,7 +60,7 @@ namespace ShootEmUp
             for (int i = tirs.Count - 1; i >= 0; i--)
             {
                 tirs[i].Update();
-                if (tirs[i].explode)
+                if (tirs[i].explode || tirs[i].outofspace)
                     tirs.RemoveAt(i);
             }
 
@@ -70,10 +70,33 @@ namespace ShootEmUp
                 {
                     if (tir != tir2)
                     {
-                        if (MathHelpers.Distance(tir.x, tir.y, tir2.x, tir2.y) <= 10)
+                        if (MathHelpers.Distance(tir.x, tir.y, tir2.x, tir2.y) <= 50 && tir.type != tir2.type)
                         {
+                            int distTirX = Math.Abs(tir.x - tir2.x);
+                            int distTirY = Math.Abs(tir.y - tir2.y);
                             tir.explode = true;
                             tir2.explode = true;
+                            if (tir.x < tir2.x)
+                            {
+                                tir.x = distTirX / 2 + tir.x;
+                                tir2.x = distTirX / 2 + tir.x;
+                            }
+                            else
+                            {
+                                tir.x = distTirX / 2 + tir2.x;
+                                tir2.x = distTirX / 2 + tir2.x;
+                            }
+
+                            if (tir.x < tir2.x)
+                            {
+                                tir.y = distTirY / 2 + tir.y;
+                                tir2.y = distTirY / 2 + tir.y;
+                            }
+                            else
+                            {
+                                tir.y = distTirY / 2 + tir2.y;
+                                tir2.y = distTirY / 2 + tir2.y;
+                            }
                         }
                     }
                 }

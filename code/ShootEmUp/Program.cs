@@ -14,10 +14,10 @@ namespace ShootEmUp
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             List<Ennemie> GroupeEnnemie = new List<Ennemie>();
-            GroupeEnnemie.Add(new Ennemie(0, 0));
+            GroupeEnnemie.Add(new Ennemie(Config.ENNEMIE_SIZE / 2,Config.ENNEMIE_SIZE / 4));
 
             // Démarrage
-            Application.Run(new GameSpace(new Player(GameSpace.WIDTH / 2, GameSpace.HEIGHT - 150, "Joe"),GroupeEnnemie));
+            Application.Run(new GameSpace(new Player(GameSpace.WIDTH / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 17),GroupeEnnemie));
         }
     }
 }
