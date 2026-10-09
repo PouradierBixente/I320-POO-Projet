@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace ShootEmUp
 {
     // La classe gamespace représente le territoire au dessus duquel les player peuvent voler
@@ -66,12 +68,25 @@ namespace ShootEmUp
 
             foreach (Tir tir in tirs)
             {
-                if (MathHelpers.Distance(tir.x, tir.y, _player.x, _player.y) <= 50 && tir.type != 1 && _player.timeinvincible <= 0)
+                if (MathHelpers.Distance(tir.x, tir.y, _player.x, _player.y) <= 50 && tir.type != 1)
                 {
-                    _player.vieplayer--;
+                    if(_player.timeinvincible <= 0)
+                    {
+                        _player.vieplayer--;
+                        _player.timeinvincible = Player.FRAMEINVINCIBLE;
+                    }
                     tir.explode = true;
-                    _player.timeinvincible = Player.FRAMEINVINCIBLE;
                 }
+
+                foreach (Ennemie ennemie in ennemies)
+                {
+                    if (MathHelpers.Distance(tir.x, tir.y, ennemie.x, ennemie.y) <= 50 && tir.type != 2)
+                    {
+                        tir.explode = true;
+                        ennemie.vieplayer--;
+                    }
+                }
+
                 foreach (Tir tir2 in tirs)
                 {
                     if (tir != tir2)
@@ -112,6 +127,15 @@ namespace ShootEmUp
             foreach (Ennemie ennemie in ennemies)
             {
                 ennemie.Update(interval);
+                if (MathHelpers.Distance(ennemie.x, ennemie.y, _player.x, _player.y) <= 50)
+                {
+                    if (_player.timeinvincible <= 0)
+                    {
+                        _player.vieplayer--;
+                        _player.timeinvincible = Player.FRAMEINVINCIBLE;
+                    }
+                    ennemie.vieplayer -= 2;
+                }
             }
         }
 
@@ -149,7 +173,7 @@ namespace ShootEmUp
 
             foreach (Ennemie ennemie in ennemies)
             {
-               // if (ennemie.timecooldown <= 0)
+                if (ennemie.timecooldown <= 0 && (_player.x + Config.PLAYER_SIZE / 2 >= ennemie.x - Config.ENNEMIE_SIZE / 2) && (_player.x - Config.PLAYER_SIZE / 2 <= ennemie.x + Config.ENNEMIE_SIZE / 2))
                 {
                     tirs.Add(ennemie.shoot());
                     ennemie.timecooldown = Ennemie.COOLDOWN;
