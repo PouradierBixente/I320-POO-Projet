@@ -6,11 +6,13 @@ namespace ShootEmUp
     // Cette partie de la classe Player définit ce qu'est un modèle numérique du joueur
     public class Player
     {
+        public const int FRAMEINVINCIBLE = 20;
         public const int COOLDOWN = 20; 
         public int vieplayer;                           // Un nom
         public int x;                                 // Position en X depuis la gauche de l'espace aérien
         public int y;                               // Position en Y depuis le haut de l'espace aérien
         public int timenomove = COOLDOWN;
+        public int timeinvincible = FRAMEINVINCIBLE;
 
         // Constructeur
         public Player(int x, int y)
@@ -25,6 +27,7 @@ namespace ShootEmUp
         public void Update(int interval)
         {
             timenomove--;
+            timeinvincible--;
             if (timenomove <= 0)
                 shoot();
         }
@@ -44,13 +47,12 @@ namespace ShootEmUp
         public void Render(BufferedGraphics drawingSpace)
         {
             drawingSpace.Graphics.DrawImage(Resources.player, x - Config.PLAYER_SIZE/2, y - Config.PLAYER_SIZE / 2, Config.PLAYER_SIZE, Config.PLAYER_SIZE);
-            drawingSpace.Graphics.DrawString($"{this}", TextHelpers.drawFont, TextHelpers.writingBrush, x + 5, y - 15);
-        }
-
-        // De manière textuelle
-        public override string ToString()
-        {
-            return $"{vieplayer}";
+            if(vieplayer == 3)
+                drawingSpace.Graphics.DrawImage(Resources._3vies, x - Config.PLAYER_LIFE_SIZE / 2, y - (Config.PLAYER_LIFE_SIZE / 6), Config.PLAYER_LIFE_SIZE, Config.PLAYER_LIFE_SIZE);
+            if (vieplayer == 2)
+                drawingSpace.Graphics.DrawImage(Resources._2vies, x - Config.PLAYER_LIFE_SIZE / 2, y - (Config.PLAYER_LIFE_SIZE / 6), Config.PLAYER_LIFE_SIZE, Config.PLAYER_LIFE_SIZE);
+            if (vieplayer == 1)
+                drawingSpace.Graphics.DrawImage(Resources._1vie, x - Config.PLAYER_LIFE_SIZE / 2, y - (Config.PLAYER_LIFE_SIZE / 6), Config.PLAYER_LIFE_SIZE, Config.PLAYER_LIFE_SIZE);
         }
 
         public Tir shoot()

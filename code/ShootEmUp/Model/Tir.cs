@@ -15,7 +15,7 @@ namespace ShootEmUp
         public int y;
         public int type;
         public bool explode = false;
-        public bool outofspace => y < -Config.SHOOT_SIZE && y > GameSpace.HEIGHT;
+        public bool outofspace => y < -Config.SHOOT_SIZE || y > GameSpace.HEIGHT;
 
         // Constructeur
         public Tir(int x, int y, int type)

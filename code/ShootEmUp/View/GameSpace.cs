@@ -66,6 +66,12 @@ namespace ShootEmUp
 
             foreach (Tir tir in tirs)
             {
+                if (MathHelpers.Distance(tir.x, tir.y, _player.x, _player.y) <= 50 && tir.type != 1 && _player.timeinvincible <= 0)
+                {
+                    _player.vieplayer--;
+                    tir.explode = true;
+                    _player.timeinvincible = Player.FRAMEINVINCIBLE;
+                }
                 foreach (Tir tir2 in tirs)
                 {
                     if (tir != tir2)
@@ -143,7 +149,7 @@ namespace ShootEmUp
 
             foreach (Ennemie ennemie in ennemies)
             {
-                if (ennemie.timecooldown <= 0)
+               // if (ennemie.timecooldown <= 0)
                 {
                     tirs.Add(ennemie.shoot());
                     ennemie.timecooldown = Ennemie.COOLDOWN;
