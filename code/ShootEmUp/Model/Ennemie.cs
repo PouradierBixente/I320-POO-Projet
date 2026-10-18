@@ -15,7 +15,7 @@ namespace ShootEmUp
         public int y;
         public State state = State.RIGHT;
         public int timecooldown = COOLDOWN;
-        public int vieplayer;
+        public int vieennemie;
 
 
         public enum State { RIGHT, LEFT }
@@ -25,7 +25,7 @@ namespace ShootEmUp
         {
             this.x = x;
             this.y = y;
-            this.vieplayer = 2;
+            this.vieennemie = 2;
         }
 
         public void Update(int interval)

@@ -15,9 +15,15 @@ namespace ShootEmUp
             ApplicationConfiguration.Initialize();
             List<Ennemie> GroupeEnnemie = new List<Ennemie>();
             GroupeEnnemie.Add(new Ennemie(Config.ENNEMIE_SIZE / 2,Config.ENNEMIE_SIZE / 4));
+            List<Barriere> GroupBarriere = new List<Barriere>();
+            GroupBarriere.Add(new Barriere(Config.BARRIERE_SIZE / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 4));
+            GroupBarriere.Add(new Barriere(GameSpace.WIDTH - Config.BARRIERE_SIZE / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 4));
+            GroupBarriere.Add(new Barriere(GameSpace.WIDTH - GameSpace.WIDTH / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 4));
+            GroupBarriere.Add(new Barriere(GameSpace.WIDTH - GameSpace.WIDTH / 4, GameSpace.HEIGHT - GameSpace.HEIGHT / 4));
+            GroupBarriere.Add(new Barriere(GameSpace.WIDTH / 4, GameSpace.HEIGHT - GameSpace.HEIGHT / 4));
 
             // Démarrage
-            Application.Run(new GameSpace(new Player(GameSpace.WIDTH / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 8),GroupeEnnemie));
+            Application.Run(new GameSpace(new Player(GameSpace.WIDTH / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 8),GroupeEnnemie, GroupBarriere));
         }
     }
 }

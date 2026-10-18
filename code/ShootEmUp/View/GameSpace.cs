@@ -14,13 +14,14 @@ namespace ShootEmUp
         // La flotte est l'ensemble des player qui évoluent dans notre espace aérien
         private Player _player;
         private List<Tir> tirs = new List<Tir>();
-        private List<Ennemie> ennemies = new List<Ennemie>(); 
+        private List<Ennemie> ennemies = new List<Ennemie>();
+        List<Barriere> barrieres = new List<Barriere>();
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics gamespace;
 
         // Initialisation de l'espace aérien avec un certain nombre de player
-        public GameSpace(Player player, List<Ennemie> ennemies)
+        public GameSpace(Player player, List<Ennemie> ennemies, List<Barriere> barrieres)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
@@ -32,6 +33,7 @@ namespace ShootEmUp
             gamespace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             this._player = player;
             this.ennemies = ennemies;
+            this.barrieres = barrieres;
         }
 
         // Affichage de la situation actuelle
@@ -49,6 +51,11 @@ namespace ShootEmUp
             foreach (Tir tir in tirs)
             {
                 tir.Render(gamespace);
+            }
+
+            foreach (Barriere barriere in barrieres)
+            {
+                barriere.Render(gamespace);
             }
 
             gamespace.Render();
@@ -83,7 +90,16 @@ namespace ShootEmUp
                     if (MathHelpers.Distance(tir.x, tir.y, ennemie.x, ennemie.y) <= 50 && tir.type != 2)
                     {
                         tir.explode = true;
-                        ennemie.vieplayer--;
+                        ennemie.vieennemie--;
+                    }
+                }
+
+                foreach (Barriere barriere in barrieres)
+                {
+                    if (MathHelpers.Distance(tir.x, tir.y, barriere.x, barriere.y) <= 100 && tir.type != 1)
+                    {
+                        tir.explode = true;
+                        barriere.vie--;
                     }
                 }
 
@@ -134,7 +150,15 @@ namespace ShootEmUp
                         _player.vieplayer--;
                         _player.timeinvincible = Player.FRAMEINVINCIBLE;
                     }
-                    ennemie.vieplayer -= 2;
+                    ennemie.vieennemie -= 2;
+                }
+                foreach (Barriere barriere in barrieres)
+                {
+                    if (MathHelpers.Distance(ennemie.x, ennemie.y, barriere.x, barriere.y) <= 50)
+                    {
+                        barriere.vie--;
+                        ennemie.vieennemie -= 2;
+                    }
                 }
             }
         }
