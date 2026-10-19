@@ -16,7 +16,8 @@ namespace ShootEmUp
         public State state = State.RIGHT;
         public int timecooldown = COOLDOWN;
         public int vieennemie;
-
+        public bool dead = false;
+        public int point = 50;
 
         public enum State { RIGHT, LEFT }
 
@@ -56,6 +57,8 @@ namespace ShootEmUp
             {
                 x -= 10;
             }
+
+            point--;
 
         }
 

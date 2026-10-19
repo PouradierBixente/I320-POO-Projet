@@ -13,6 +13,7 @@ namespace ShootEmUp
         public int y;                               // Position en Y depuis le haut de l'espace aérien
         public int timenomove = COOLDOWN;
         public int timeinvincible = FRAMEINVINCIBLE;
+        public int score = 0;
 
         // Constructeur
         public Player(int x, int y)

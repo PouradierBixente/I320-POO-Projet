@@ -73,6 +73,15 @@ namespace ShootEmUp
                     tirs.RemoveAt(i);
             }
 
+            for (int i = ennemies.Count - 1; i >= 0; i--)
+            {
+                if (ennemies[i].dead)
+                {
+                    ennemies.RemoveAt(i);
+                    _player.score += ennemies[i].point;
+                }
+            }
+
             foreach (Tir tir in tirs)
             {
                 if (MathHelpers.Distance(tir.x, tir.y, _player.x, _player.y) <= 50 && tir.type != 1)
@@ -143,6 +152,8 @@ namespace ShootEmUp
             foreach (Ennemie ennemie in ennemies)
             {
                 ennemie.Update(interval);
+                if(ennemie.vieennemie <= 0)
+                    ennemie.dead = true;
                 if (MathHelpers.Distance(ennemie.x, ennemie.y, _player.x, _player.y) <= 50)
                 {
                     if (_player.timeinvincible <= 0)
