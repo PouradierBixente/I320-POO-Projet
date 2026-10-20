@@ -13,9 +13,6 @@ namespace ShootEmUp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            List<Ennemie> GroupeEnnemie = new List<Ennemie>();
-            GroupeEnnemie.Add(new Ennemie(Config.ENNEMIE_SIZE / 2,Config.ENNEMIE_SIZE / 4));
-
 
             List<Barriere> GroupBarriere = new List<Barriere>();
             GroupBarriere.Add(new Barriere(Config.BARRIERE_SIZE / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 4));
@@ -25,7 +22,7 @@ namespace ShootEmUp
             GroupBarriere.Add(new Barriere(GameSpace.WIDTH / 4, GameSpace.HEIGHT - GameSpace.HEIGHT / 4));
 
             // Démarrage
-            Application.Run(new GameSpace(new Player(GameSpace.WIDTH / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 8),GroupeEnnemie, GroupBarriere));
+            Application.Run(new GameSpace(new Player(GameSpace.WIDTH / 2, GameSpace.HEIGHT - GameSpace.HEIGHT / 8), GroupBarriere));
         }
     }
 }

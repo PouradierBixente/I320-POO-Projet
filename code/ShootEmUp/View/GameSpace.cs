@@ -16,12 +16,14 @@ namespace ShootEmUp
         private List<Tir> tirs = new List<Tir>();
         private List<Ennemie> ennemies = new List<Ennemie>();
         List<Barriere> barrieres = new List<Barriere>();
+        private int i = 0;
+        private int j = 0;
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics gamespace;
 
         // Initialisation de l'espace aérien avec un certain nombre de player
-        public GameSpace(Player player, List<Ennemie> ennemies, List<Barriere> barrieres)
+        public GameSpace(Player player, List<Barriere> barrieres)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
@@ -32,7 +34,6 @@ namespace ShootEmUp
             // dimensions the same size as the drawing surface of the form.
             gamespace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             this._player = player;
-            this.ennemies = ennemies;
             this.barrieres = barrieres;
         }
 
@@ -64,6 +65,47 @@ namespace ShootEmUp
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
+            if (i == 0)
+            {
+                ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
+                i++;
+                j++;
+            }
+
+            if (Ennemie.wave == 1 && ennemies.Count != 15 && j != 15)
+            {
+                if (ennemies[ennemies.Count - 1].x >= Config.ENNEMIE_SIZE * 2)
+                {
+                    ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
+                    j++;
+                }
+            }
+
+            if (Ennemie.wave == 2 && ennemies.Count != 25 && j != 25)
+            {
+                if (ennemies[ennemies.Count - 1].x >= Config.ENNEMIE_SIZE * 2)
+                {
+                    ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
+                    j++;
+                }
+            }
+
+            if (Ennemie.wave == 3 && ennemies.Count != 50 && j != 50)
+            {
+                if (ennemies[ennemies.Count - 1].x >= Config.ENNEMIE_SIZE * 2)
+                {
+                    ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
+                    j++;
+                }
+            }
+
+            if (ennemies.Count == 0)
+            {
+                Ennemie.wave++;
+                i = 0;
+                j = 0;
+            }
+
             _player.Update(interval);
 
             for (int i = tirs.Count - 1; i >= 0; i--)
@@ -77,8 +119,8 @@ namespace ShootEmUp
             {
                 if (ennemies[i].dead)
                 {
-                    ennemies.RemoveAt(i);
                     _player.score += ennemies[i].point;
+                    ennemies.RemoveAt(i);
                 }
             }
 

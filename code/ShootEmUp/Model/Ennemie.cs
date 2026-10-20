@@ -18,6 +18,7 @@ namespace ShootEmUp
         public int vieennemie;
         public bool dead = false;
         public int point = 50;
+        public static int wave = 1;
 
         public enum State { RIGHT, LEFT }
 
