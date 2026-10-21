@@ -115,6 +115,12 @@ namespace ShootEmUp
                     tirs.RemoveAt(i);
             }
 
+            for (int i = barrieres.Count - 1; i >= 0; i--)
+            {
+                if (barrieres[i].vie <= 0)
+                    barrieres.RemoveAt(i);
+            }
+
             for (int i = ennemies.Count - 1; i >= 0; i--)
             {
                 if (ennemies[i].dead)
