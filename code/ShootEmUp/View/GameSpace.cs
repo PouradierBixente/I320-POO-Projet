@@ -1,4 +1,6 @@
+using ShootEmUp.Helpers;
 using System.Drawing;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ShootEmUp
 {
@@ -59,12 +61,24 @@ namespace ShootEmUp
                 barriere.Render(gamespace);
             }
 
+            if (_player.vieplayer <= 0 || (Ennemie.wave >= 3 && ennemies.Count <= 0))
+                gamespace.Graphics.DrawString($"Votre score : {_player.score}", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 4 , GameSpace.HEIGHT / 4);
+
+            if (Ennemie.wave >= 3 && ennemies.Count <= 0)
+                gamespace.Graphics.DrawString($"Victoire", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 2 - 125 , GameSpace.HEIGHT / 2);
+
+            if (_player.vieplayer <= 0)
+                gamespace.Graphics.DrawString($"Defaite", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 2, GameSpace.HEIGHT / 2);
+
             gamespace.Render();
         }
 
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
+            if (_player.vieplayer <= 0 || (Ennemie.wave >= 3 && ennemies.Count <= 0))
+                return;
+
             if (i == 0)
             {
                 ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
@@ -99,7 +113,7 @@ namespace ShootEmUp
                 }
             }
 
-            if (ennemies.Count == 0)
+            if (ennemies.Count <= 0)
             {
                 Ennemie.wave++;
                 i = 0;

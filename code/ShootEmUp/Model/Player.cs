@@ -54,6 +54,7 @@ namespace ShootEmUp
                 drawingSpace.Graphics.DrawImage(Resources._2vies, x - Config.PLAYER_LIFE_SIZE / 2, y - (Config.PLAYER_LIFE_SIZE / 6), Config.PLAYER_LIFE_SIZE, Config.PLAYER_LIFE_SIZE);
             if (vieplayer == 1)
                 drawingSpace.Graphics.DrawImage(Resources._1vie, x - Config.PLAYER_LIFE_SIZE / 2, y - (Config.PLAYER_LIFE_SIZE / 6), Config.PLAYER_LIFE_SIZE, Config.PLAYER_LIFE_SIZE);
+            
         }
 
         public Tir shoot()
