@@ -146,7 +146,7 @@ namespace ShootEmUp
 
             foreach (Tir tir in tirs)
             {
-                if (MathHelpers.Distance(tir.x, tir.y, _player.x, _player.y) <= 50 && tir.type != 1)
+                if (MathHelpers.Distance(tir.x, tir.y, _player.x, _player.y) <= 50 && tir.type != Tir.Type.PLAYER)
                 {
                     if(_player.timeinvincible <= 0)
                     {
@@ -158,7 +158,7 @@ namespace ShootEmUp
 
                 foreach (Ennemie ennemie in ennemies)
                 {
-                    if (MathHelpers.Distance(tir.x, tir.y, ennemie.x, ennemie.y) <= 50 && tir.type != 2)
+                    if (MathHelpers.Distance(tir.x, tir.y, ennemie.x, ennemie.y) <= 50 && tir.type != Tir.Type.ENNEMIE)
                     {
                         tir.explode = true;
                         ennemie.vieennemie--;
@@ -167,7 +167,7 @@ namespace ShootEmUp
 
                 foreach (Barriere barriere in barrieres)
                 {
-                    if (MathHelpers.Distance(tir.x, tir.y, barriere.x, barriere.y) <= 100 && tir.type != 1)
+                    if (MathHelpers.Distance(tir.x, tir.y, barriere.x, barriere.y) <= 100 && tir.type != Tir.Type.PLAYER)
                     {
                         tir.explode = true;
                         barriere.vie--;
