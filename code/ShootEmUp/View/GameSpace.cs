@@ -1,7 +1,3 @@
-using ShootEmUp.Helpers;
-using System.Drawing;
-using static System.Formats.Asn1.AsnWriter;
-
 namespace ShootEmUp
 {
     // La classe gamespace représente le territoire au dessus duquel les player peuvent voler

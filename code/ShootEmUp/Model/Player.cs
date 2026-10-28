@@ -1,5 +1,4 @@
-﻿using ShootEmUp.Helpers;
-using ShootEmUp.Properties;
+﻿using ShootEmUp.Properties;
 
 namespace ShootEmUp
 {
