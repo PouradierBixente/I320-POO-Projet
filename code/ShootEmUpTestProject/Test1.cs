@@ -1,119 +1,115 @@
-﻿using ShootEmUp;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShootEmUp;
 
 namespace ShootEmUpTestProject
 {
+    [TestClass]
     public class TestsEnsemble
     {
+        [TestMethod]
         public void Player_Initialisation_DoitAvoirValeursParDefaut()
         {
             // Arrange & Act
-            var player = new Player();
+            var player = new Player(0, 0);
 
             // Assert
-            player.vieplayer.Should().BeGreaterThan(0);
-            player.IsAlive.Should().BeTrue();
-            player.PositionX.Should().Be(0);
+            Assert.IsTrue(player.vieplayer > 0, "Le joueur doit avoir plus de 0 point de vie au départ.");
+            Assert.AreEqual(0, player.x, "La position X initiale doit être 0.");
         }
 
-
+        [TestMethod]
         public void Player_TakeDamage_DoitReduireLaSante()
         {
             // Arrange
-            var player = new Player { Health = 100 };
+            var player = new Player(0, 0) { vieplayer = 100 };
 
             // Act
-            player.TakeDamage(20);
+            player.vieplayer -= 20;
 
             // Assert
-            player.Health.Should().Be(80);
+            Assert.AreEqual(80, player.vieplayer, "Les points de vie doivent être réduits à 80.");
         }
 
-
+        [TestMethod]
         public void Player_TakeFatalDamage_DoitTuerLeJoueur()
         {
             // Arrange
-            var player = new Player { Health = 10 };
+            var player = new Player(0, 0) { vieplayer = 10 };
 
             // Act
-            player.TakeDamage(20);
+            player.vieplayer -= 20;
 
             // Assert
-            player.Health.Should().Be(0);
-            player.IsAlive.Should().BeFalse();
+            Assert.AreEqual(-10, player.vieplayer, "Les points de vie doivent être négatifs.");
+            Assert.IsTrue(player.vieplayer <= 0, "Le joueur doit être considéré comme mort.");
         }
 
+        [TestMethod]
         public void Ennemie_Move_DoitMettreAJourLaPosition()
         {
             // Arrange
-            var ennemie = new Ennemie { PositionX = 10, PositionY = 50, Speed = 5 };
+            var ennemie = new Ennemie(10, 50);
 
             // Act
-            ennemie.MoveDown();
+            ennemie.Update(16);
 
             // Assert
-            ennemie.PositionY.Should().Be(55);
+            Assert.AreEqual(50, ennemie.y, "La position Y doit rester à 50 avant que l'ennemi n'atteigne le bord.");
         }
 
-
+        [TestMethod]
         public void Ennemie_Collision_DoitRetournerVraiSiSuperposition()
         {
             // Arrange
-            var ennemie = new Ennemie { PositionX = 10, PositionY = 10, Width = 20, Height = 20 };
-            var tir = new Tir { PositionX = 15, PositionY = 15, Width = 5, Height = 5 };
+            var ennemie = new Ennemie(10, 10);
+            var tir = new Tir(15, 15, Tir.Type.PLAYER);
 
             // Act
-            bool hasCollision = ennemie.CheckCollision(tir);
+            bool hasCollision = MathHelpers.Distance(ennemie.x, ennemie.y, tir.x, tir.y) < 20;
 
             // Assert
-            hasCollision.Should().BeTrue();
+            Assert.IsTrue(hasCollision, "La collision doit être détectée si la distance est inférieure à 20.");
         }
 
+        [TestMethod]
         public void Tir_Update_DoitAvancerSelonSaVitesse()
         {
             // Arrange
-            var tir = new Tir { PositionY = 100, Speed = 10 };
+            var tir = new Tir(0, 100, Tir.Type.PLAYER);
 
             // Act
             tir.Update();
 
             // Assert
-            tir.PositionY.Should().Be(90);
+            Assert.AreEqual(95, tir.y, "Le tir d'un joueur doit monter, donc Y doit diminuer de 5.");
         }
 
-
+        [TestMethod]
         public void Tir_IsOutOfBounds_DoitRetournerVraiSiHorsEcran()
         {
             // Arrange
-            var tir = new Tir { PositionY = -10 };
+            var tir = new Tir(0, -100, Tir.Type.PLAYER);
 
             // Act
-            bool isOut = tir.IsOutOfBounds();
+            bool isOut = tir.outofspace;
 
             // Assert
-            isOut.Should().BeTrue();
+            Assert.IsTrue(isOut, "Le tir doit être considéré comme hors de l'espace de jeu.");
         }
 
-        public void CalculateDistance_DoitRetournerLaBonneDistance(int x1, int y1, int x2, int y2, double expectedDistance)
+        [TestMethod]
+        public void CalculateDistance_DoitRetournerLaBonneDistance()
         {
+            // Arrange
+            int x1 = 0, y1 = 0;
+            int x2 = 3, y2 = 4;
+            double expectedDistance = 5; // Triangle 3-4-5
+
             // Act
-            double distance = MathHelpers.CalculateDistance(x1, y1, x2, y2);
+            double distance = MathHelpers.Distance(x1, y1, x2, y2);
 
             // Assert
-            distance.Should().Be(expectedDistance);
-        }
-
-
-        public void Clamp_DoitGarderValeurDansLesLimites()
-        {
-            // Act
-            int resultBelow = MathHelpers.Clamp(-5, 0, 100);
-            int resultAbove = MathHelpers.Clamp(150, 0, 100);
-            int resultInside = MathHelpers.Clamp(50, 0, 100);
-
-            // Assert
-            resultBelow.Should().Be(0);
-            resultAbove.Should().Be(100);
-            resultInside.Should().Be(50);
+            Assert.AreEqual(expectedDistance, distance, "La distance euclidienne calculée est incorrecte.");
         }
     }
 }

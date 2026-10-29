@@ -18,7 +18,7 @@ namespace ShootEmUp
         {
             this.x = x;
             this.y = y;
-            Tir.Type Type = type;
+            this.type  = type;
         }
 
         public void Update()
