@@ -39,8 +39,6 @@ namespace ShootEmUp
         {
             Timenomove--;
             Timeinvincible--;
-            if (Timenomove <= 0)
-                shoot();
         }
 
         // Déplacement
@@ -48,7 +46,7 @@ namespace ShootEmUp
         {
             int space = GameSpace.WIDTH - Config.PLAYER_SIZE;
             X += side ? 10 : -10;
-            X = (X + space) % space;
+            X = (X + space) % space;   // Change la position du joueur au resultat du modulo et si le joueur dépasse de l'écran il est envoyer de l'autre côté.
             Timenomove = COOLDOWN;
         }
 
