@@ -4,72 +4,86 @@ namespace ShootEmUp
 {
     public class Ennemie
     {
-        public const int COOLDOWN = 30;
+        private const int _COOLDOWN = 30;
         private const int SPEED = 10;
-        public int x;
-        public int y;
-        public State state = State.RIGHT;
-        public int timecooldown = COOLDOWN;
-        public int vieennemie;
-        public bool dead = false;
-        public int point = 50;
-        public static int wave = 1;
+        private int _x;
+        private int _y;
+        private State _state;
+        private int _timecooldown;
+        private int _vieennemie;
+        private bool _dead;
+        private int _point;
+        public static int Wave = 1;
+
+        public int X { get => _x; set => _x = value; }
+        public int Y { get => _y; set => _y = value; }
+        public int Vieennemie { get => _vieennemie; set => _vieennemie = value; }
+        public bool Dead { get => _dead; set => _dead = value; }
+        public int Point { get => _point; set => _point = value; }
+
+        public static int COOLDOWN => _COOLDOWN;
+
+        public int Timecooldown { get => _timecooldown; set => _timecooldown = value; }
 
         public enum State { RIGHT, LEFT }
 
         // Constructeur
         public Ennemie(int x, int y)
         {
-            this.x = x;
-            this.y = y;
-            this.vieennemie = 2;
+            X = x;
+            Y = y;
+            Vieennemie = 2;
+            Timecooldown = COOLDOWN;
+            _state = State.RIGHT;
+            _dead = false;
+            _point = 50;
         }
 
         public void Update(int interval)
         {
-            timecooldown--;
-            if (timecooldown <= 0)
+            Timecooldown--;
+            if (Timecooldown <= 0)
                 shoot();
             int space = GameSpace.WIDTH - Config.ENNEMIE_SIZE;
             
             
-            if(x >= space)
+            if(X >= space)
             {
-                state = State.LEFT;
-                y += 10;
+                _state = State.LEFT;
+                Y += 10;
             }
-            if (x <= -5)
+            if (X <= -5)
             {
-                state = State.RIGHT;
-                y += 10;
-            }
-
-            if (state == State.RIGHT)
-            {
-                x += 10;
+                _state = State.RIGHT;
+                Y += 10;
             }
 
-            if (state == State.LEFT)
+            if (_state == State.RIGHT)
             {
-                x -= 10;
+                X += 10;
             }
 
-            point--;
+            if (_state == State.LEFT)
+            {
+                X -= 10;
+            }
+
+            Point--;
 
         }
 
         public void Render(BufferedGraphics drawingSpace)
         {
-            if (state == State.RIGHT)
-                drawingSpace.Graphics.DrawImage(Resources.EnnmieMouvementDroite, x - Config.ENNEMIE_SIZE / 2, y - Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
+            if (_state == State.RIGHT)
+                drawingSpace.Graphics.DrawImage(Resources.EnnmieMouvementDroite, X - Config.ENNEMIE_SIZE / 2, Y - Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
             
-            if (state == State.LEFT)
-                drawingSpace.Graphics.DrawImage(Resources.EnnemieMouvementGauche, x - Config.ENNEMIE_SIZE / 2, y - Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
+            if (_state == State.LEFT)
+                drawingSpace.Graphics.DrawImage(Resources.EnnemieMouvementGauche, X - Config.ENNEMIE_SIZE / 2, Y - Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
         }
 
         public Tir shoot()
         {
-            Tir tir = new Tir(x, y + Config.ENNEMIE_SIZE / 2, Tir.Type.ENNEMIE);
+            Tir tir = new Tir(X, Y + Config.ENNEMIE_SIZE / 2, Tir.Type.ENNEMIE);
             return tir;
 
         }

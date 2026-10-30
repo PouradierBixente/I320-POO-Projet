@@ -57,13 +57,13 @@ namespace ShootEmUp
                 barriere.Render(gamespace);
             }
 
-            if (_player.vieplayer <= 0 || (Ennemie.wave >= 3 && ennemies.Count <= 0))
-                gamespace.Graphics.DrawString($"Votre score : {_player.score}", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 4 , GameSpace.HEIGHT / 4);
+            if (_player.Vieplayer <= 0 || (Ennemie.Wave >= 3 && ennemies.Count <= 0))
+                gamespace.Graphics.DrawString($"Votre score : {_player.Score}", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 4 , GameSpace.HEIGHT / 4);
 
-            if (Ennemie.wave >= 3 && ennemies.Count <= 0)
+            if (Ennemie.Wave >= 3 && ennemies.Count <= 0)
                 gamespace.Graphics.DrawString($"Victoire", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 2 - 125 , GameSpace.HEIGHT / 2);
 
-            if (_player.vieplayer <= 0)
+            if (_player.Vieplayer <= 0)
                 gamespace.Graphics.DrawString($"Defaite", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 2, GameSpace.HEIGHT / 2);
 
             gamespace.Render();
@@ -72,7 +72,7 @@ namespace ShootEmUp
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
-            if (_player.vieplayer <= 0 || (Ennemie.wave >= 3 && ennemies.Count <= 0))
+            if (_player.Vieplayer <= 0 || (Ennemie.Wave >= 3 && ennemies.Count <= 0))
                 return;
 
             if (i == 0)
@@ -82,27 +82,27 @@ namespace ShootEmUp
                 j++;
             }
 
-            if (Ennemie.wave == 1 && ennemies.Count != 15 && j != 15)
+            if (Ennemie.Wave == 1 && ennemies.Count != 15 && j != 15)
             {
-                if (ennemies[ennemies.Count - 1].x >= Config.ENNEMIE_SIZE * 2)
+                if (ennemies[ennemies.Count - 1].X >= Config.ENNEMIE_SIZE * 2)
                 {
                     ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
                     j++;
                 }
             }
 
-            if (Ennemie.wave == 2 && ennemies.Count != 25 && j != 25)
+            if (Ennemie.Wave == 2 && ennemies.Count != 25 && j != 25)
             {
-                if (ennemies[ennemies.Count - 1].x >= Config.ENNEMIE_SIZE * 2)
+                if (ennemies[ennemies.Count - 1].X >= Config.ENNEMIE_SIZE * 2)
                 {
                     ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
                     j++;
                 }
             }
 
-            if (Ennemie.wave == 3 && ennemies.Count != 50 && j != 50)
+            if (Ennemie.Wave == 3 && ennemies.Count != 50 && j != 50)
             {
-                if (ennemies[ennemies.Count - 1].x >= Config.ENNEMIE_SIZE * 2)
+                if (ennemies[ennemies.Count - 1].X >= Config.ENNEMIE_SIZE * 2)
                 {
                     ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
                     j++;
@@ -111,7 +111,7 @@ namespace ShootEmUp
 
             if (ennemies.Count <= 0)
             {
-                Ennemie.wave++;
+                Ennemie.Wave++;
                 i = 0;
                 j = 0;
             }
@@ -121,52 +121,52 @@ namespace ShootEmUp
             for (int i = tirs.Count - 1; i >= 0; i--)
             {
                 tirs[i].Update();
-                if (tirs[i].explode || tirs[i].outofspace)
+                if (tirs[i].Explode || tirs[i].outofspace)
                     tirs.RemoveAt(i);
             }
 
             for (int i = barrieres.Count - 1; i >= 0; i--)
             {
-                if (barrieres[i].vie <= 0)
+                if (barrieres[i].Vie <= 0)
                     barrieres.RemoveAt(i);
             }
 
             for (int i = ennemies.Count - 1; i >= 0; i--)
             {
-                if (ennemies[i].dead)
+                if (ennemies[i].Dead)
                 {
-                    _player.score += ennemies[i].point;
+                    _player.Score += ennemies[i].Point;
                     ennemies.RemoveAt(i);
                 }
             }
 
             foreach (Tir tir in tirs)
             {
-                if (MathHelpers.Distance(tir.x, tir.y, _player.x, _player.y) <= 50 && tir.type != Tir.Type.PLAYER)
+                if (MathHelpers.Distance(tir.X, tir.Y, _player.X, _player.Y) <= 50 && tir.type != Tir.Type.PLAYER)
                 {
-                    if(_player.timeinvincible <= 0)
+                    if(_player.Timeinvincible <= 0)
                     {
-                        _player.vieplayer--;
-                        _player.timeinvincible = Player.FRAMEINVINCIBLE;
+                        _player.Vieplayer--;
+                        _player.Timeinvincible = Player.FRAMEINVINCIBLE;
                     }
-                    tir.explode = true;
+                    tir.Explode = true;
                 }
 
                 foreach (Ennemie ennemie in ennemies)
                 {
-                    if (MathHelpers.Distance(tir.x, tir.y, ennemie.x, ennemie.y) <= 50 && tir.type != Tir.Type.ENNEMIE)
+                    if (MathHelpers.Distance(tir.X, tir.Y, ennemie.X, ennemie.Y) <= 50 && tir.type != Tir.Type.ENNEMIE)
                     {
-                        tir.explode = true;
-                        ennemie.vieennemie--;
+                        tir.Explode = true;
+                        ennemie.Vieennemie--;
                     }
                 }
 
                 foreach (Barriere barriere in barrieres)
                 {
-                    if (MathHelpers.Distance(tir.x, tir.y, barriere.x, barriere.y) <= 100 && tir.type != Tir.Type.PLAYER)
+                    if (MathHelpers.Distance(tir.X, tir.Y, barriere.X, barriere.Y) <= 100 && tir.type != Tir.Type.PLAYER)
                     {
-                        tir.explode = true;
-                        barriere.vie--;
+                        tir.Explode = true;
+                        barriere.Vie--;
                     }
                 }
 
@@ -174,32 +174,32 @@ namespace ShootEmUp
                 {
                     if (tir != tir2)
                     {
-                        if (MathHelpers.Distance(tir.x, tir.y, tir2.x, tir2.y) <= 50 && tir.type != tir2.type)
+                        if (MathHelpers.Distance(tir.X, tir.Y, tir2.X, tir2.Y) <= 50 && tir.type != tir2.type)
                         {
-                            int distTirX = Math.Abs(tir.x - tir2.x);
-                            int distTirY = Math.Abs(tir.y - tir2.y);
-                            tir.explode = true;
-                            tir2.explode = true;
-                            if (tir.x < tir2.x)
+                            int distTirX = Math.Abs(tir.X - tir2.X);
+                            int distTirY = Math.Abs(tir.Y - tir2.Y);
+                            tir.Explode = true;
+                            tir2.Explode = true;
+                            if (tir.X < tir2.X)
                             {
-                                tir.x = distTirX / 2 + tir.x;
-                                tir2.x = distTirX / 2 + tir.x;
+                                tir.X = distTirX / 2 + tir.X;
+                                tir2.X = distTirX / 2 + tir.X;
                             }
                             else
                             {
-                                tir.x = distTirX / 2 + tir2.x;
-                                tir2.x = distTirX / 2 + tir2.x;
+                                tir.X = distTirX / 2 + tir2.X;
+                                tir2.X = distTirX / 2 + tir2.X;
                             }
 
-                            if (tir.x < tir2.x)
+                            if (tir.X < tir2.X)
                             {
-                                tir.y = distTirY / 2 + tir.y;
-                                tir2.y = distTirY / 2 + tir.y;
+                                tir.Y = distTirY / 2 + tir.Y;
+                                tir2.Y = distTirY / 2 + tir.Y;
                             }
                             else
                             {
-                                tir.y = distTirY / 2 + tir2.y;
-                                tir2.y = distTirY / 2 + tir2.y;
+                                tir.Y = distTirY / 2 + tir2.Y;
+                                tir2.Y = distTirY / 2 + tir2.Y;
                             }
                         }
                     }
@@ -210,23 +210,23 @@ namespace ShootEmUp
             foreach (Ennemie ennemie in ennemies)
             {
                 ennemie.Update(interval);
-                if(ennemie.vieennemie <= 0)
-                    ennemie.dead = true;
-                if (MathHelpers.Distance(ennemie.x, ennemie.y, _player.x, _player.y) <= 50)
+                if(ennemie.Vieennemie <= 0)
+                    ennemie.Dead = true;
+                if (MathHelpers.Distance(ennemie.X, ennemie.Y, _player.X, _player.Y) <= 50)
                 {
-                    if (_player.timeinvincible <= 0)
+                    if (_player.Timeinvincible <= 0)
                     {
-                        _player.vieplayer--;
-                        _player.timeinvincible = Player.FRAMEINVINCIBLE;
+                        _player.Vieplayer--;
+                        _player.Timeinvincible = Player.FRAMEINVINCIBLE;
                     }
-                    ennemie.vieennemie -= 2;
+                    ennemie.Vieennemie -= 2;
                 }
                 foreach (Barriere barriere in barrieres)
                 {
-                    if (MathHelpers.Distance(ennemie.x, ennemie.y, barriere.x, barriere.y) <= 50)
+                    if (MathHelpers.Distance(ennemie.X, ennemie.Y, barriere.X, barriere.Y) <= 50)
                     {
-                        barriere.vie--;
-                        ennemie.vieennemie -= 2;
+                        barriere.Vie--;
+                        ennemie.Vieennemie -= 2;
                     }
                 }
             }
@@ -235,8 +235,8 @@ namespace ShootEmUp
         // Méthode appelée à chaque frame
         private void NewFrame(object sender, EventArgs e)
         {
-            this.Update(ticker.Interval);
-            this.Render();
+            Update(ticker.Interval);
+            Render();
             Addshoot();
         }
 
@@ -258,18 +258,18 @@ namespace ShootEmUp
 
         public void Addshoot()
         {
-            if (_player.timenomove <= 0)
+            if (_player.Timenomove <= 0)
             {
                 tirs.Add(_player.shoot());
-                _player.timenomove = Player.COOLDOWN;
+                _player.Timenomove = Player.COOLDOWN;
             }
 
             foreach (Ennemie ennemie in ennemies)
             {
-                if (ennemie.timecooldown <= 0 && (_player.x + Config.PLAYER_SIZE / 2 >= ennemie.x - Config.ENNEMIE_SIZE / 2) && (_player.x - Config.PLAYER_SIZE / 2 <= ennemie.x + Config.ENNEMIE_SIZE / 2))
+                if (ennemie.Timecooldown <= 0 && (_player.X + Config.PLAYER_SIZE / 2 >= ennemie.X - Config.ENNEMIE_SIZE / 2) && (_player.X - Config.PLAYER_SIZE / 2 <= ennemie.X + Config.ENNEMIE_SIZE / 2))
                 {
                     tirs.Add(ennemie.shoot());
-                    ennemie.timecooldown = Ennemie.COOLDOWN;
+                    ennemie.Timecooldown = Ennemie.COOLDOWN;
                 }
             }
         }

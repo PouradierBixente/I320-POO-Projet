@@ -13,35 +13,35 @@ namespace ShootEmUpTestProject
             var player = new Player(0, 0);
 
             // Assert
-            Assert.IsTrue(player.vieplayer > 0, "Le joueur doit avoir plus de 0 point de vie au départ.");
-            Assert.AreEqual(0, player.x, "La position X initiale doit être 0.");
+            Assert.IsTrue(player.Vieplayer > 0, "Le joueur doit avoir plus de 0 point de vie au départ.");
+            Assert.AreEqual(0, player.X, "La position X initiale doit être 0.");
         }
 
         [TestMethod]
         public void Player_TakeDamage_DoitReduireLaSante()
         {
             // Arrange
-            var player = new Player(0, 0) { vieplayer = 100 };
+            var player = new Player(0, 0) { Vieplayer = 100 };
 
             // Act
-            player.vieplayer -= 20;
+            player.Vieplayer -= 20;
 
             // Assert
-            Assert.AreEqual(80, player.vieplayer, "Les points de vie doivent être réduits à 80.");
+            Assert.AreEqual(80, player.Vieplayer, "Les points de vie doivent être réduits à 80.");
         }
 
         [TestMethod]
         public void Player_TakeFatalDamage_DoitTuerLeJoueur()
         {
             // Arrange
-            var player = new Player(0, 0) { vieplayer = 10 };
+            var player = new Player(0, 0) { Vieplayer = 10 };
 
             // Act
-            player.vieplayer -= 20;
+            player.Vieplayer -= 20;
 
             // Assert
-            Assert.AreEqual(-10, player.vieplayer, "Les points de vie doivent être négatifs.");
-            Assert.IsTrue(player.vieplayer <= 0, "Le joueur doit être considéré comme mort.");
+            Assert.AreEqual(-10, player.Vieplayer, "Les points de vie doivent être négatifs.");
+            Assert.IsTrue(player.Vieplayer <= 0, "Le joueur doit être considéré comme mort.");
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace ShootEmUpTestProject
             ennemie.Update(16);
 
             // Assert
-            Assert.AreEqual(50, ennemie.y, "La position Y doit rester à 50 avant que l'ennemi n'atteigne le bord.");
+            Assert.AreEqual(50, ennemie.Y, "La position Y doit rester à 50 avant que l'ennemi n'atteigne le bord.");
         }
 
         [TestMethod]
@@ -65,7 +65,7 @@ namespace ShootEmUpTestProject
             var tir = new Tir(15, 15, Tir.Type.PLAYER);
 
             // Act
-            bool hasCollision = MathHelpers.Distance(ennemie.x, ennemie.y, tir.x, tir.y) < 20;
+            bool hasCollision = MathHelpers.Distance(ennemie.X, ennemie.Y, tir.X, tir.Y) < 20;
 
             // Assert
             Assert.IsTrue(hasCollision, "La collision doit être détectée si la distance est inférieure à 20.");
@@ -81,7 +81,7 @@ namespace ShootEmUpTestProject
             tir.Update();
 
             // Assert
-            Assert.AreEqual(95, tir.y, "Le tir d'un joueur doit monter, donc Y doit diminuer de 5.");
+            Assert.AreEqual(95, tir.Y, "Le tir d'un joueur doit monter, donc Y doit diminuer de 5.");
         }
 
         [TestMethod]
