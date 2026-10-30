@@ -2,16 +2,13 @@ using ShootEmUp.Properties;
 
 namespace ShootEmUp
 {
-    // La classe gamespace représente le territoire au dessus duquel les player peuvent voler
-    // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
-    // Il n'y a donc pas de notion d'altitude qui intervient
-
+    // Fenêtre principale du jeu gérant la boucle d'actualisation, les entités et l'affichage
     public partial class GameSpace : Form
     {
-        public static readonly int WIDTH = 1920;        // Dimensions of the gamespace
+        public static readonly int WIDTH = 1920;        // Dimensions de la zone de jeu
         public static readonly int HEIGHT = 1080;
 
-        // La flotte est l'ensemble des player qui évoluent dans notre espace aérien
+        // Entités du jeu
         private Player _player;
         private List<Tir> tirs = new List<Tir>();
         private List<Ennemie> ennemies = new List<Ennemie>();
@@ -19,25 +16,23 @@ namespace ShootEmUp
         private int i = 0;
         private int j = 0;
 
+        // Gestion du double buffering pour éviter le scintillement
         BufferedGraphicsContext currentContext;
         BufferedGraphics gamespace;
 
-        // Initialisation de l'espace aérien avec un certain nombre de player
+        // Initialisation du formulaire, du buffer graphique et des objets principaux
         public GameSpace(Player player, List<Barriere> barrieres)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
 
-            // Gets a reference to the current BufferedGraphicsContext
             currentContext = BufferedGraphicsManager.Current;
-            // Creates a BufferedGraphics instance associated with this form, and with
-            // dimensions the same size as the drawing surface of the form.
             gamespace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
             _player = player;
             this.barrieres = barrieres;
         }
 
-        // Affichage de la situation actuelle
+        // Dessine l'arrière-plan, les entités et l'interface de fin (Victoire / Défaite / Score)
         private void Render()
         {
             gamespace.Graphics.Clear(Color.AliceBlue);
@@ -61,11 +56,12 @@ namespace ShootEmUp
                 barriere.Render(gamespace);
             }
 
+            // Écran de fin de partie
             if (_player.Vieplayer <= 0 || (Ennemie.Wave >= 3 && ennemies.Count <= 0))
-                gamespace.Graphics.DrawString($"Votre score : {_player.Score}", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 4 , GameSpace.HEIGHT / 4);
+                gamespace.Graphics.DrawString($"Votre score : {_player.Score}", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 4, GameSpace.HEIGHT / 4);
 
             if (Ennemie.Wave >= 3 && ennemies.Count <= 0)
-                gamespace.Graphics.DrawString($"Victoire", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 2 - 125 , GameSpace.HEIGHT / 2);
+                gamespace.Graphics.DrawString($"Victoire", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 2 - 125, GameSpace.HEIGHT / 2);
 
             if (_player.Vieplayer <= 0)
                 gamespace.Graphics.DrawString($"Defaite", TextHelpers.drawFont, TextHelpers.writingBrush, GameSpace.WIDTH / 2, GameSpace.HEIGHT / 2);
@@ -73,12 +69,13 @@ namespace ShootEmUp
             gamespace.Render();
         }
 
-        // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
+        // Logique principale : apparition des vagues, collisions et nettoyage des entités
         private void Update(int interval)
         {
             if (_player.Vieplayer <= 0 || (Ennemie.Wave >= 3 && ennemies.Count <= 0))
                 return;
 
+            // Apparition du premier ennemi
             if (i == 0)
             {
                 ennemies.Add(new Ennemie(Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE / 4));
@@ -86,6 +83,7 @@ namespace ShootEmUp
                 j++;
             }
 
+            // Gestion de l'apparition progressive des ennemis selon la vague active
             if (Ennemie.Wave == 1 && ennemies.Count != 15 && j != 15)
             {
                 if (ennemies[ennemies.Count - 1].X >= Config.ENNEMIE_SIZE * 2)
@@ -113,6 +111,7 @@ namespace ShootEmUp
                 }
             }
 
+            // Passage à la vague suivante une fois la zone nettoyée
             if (ennemies.Count <= 0)
             {
                 Ennemie.Wave++;
@@ -122,6 +121,7 @@ namespace ShootEmUp
 
             _player.Update(interval);
 
+            // Suppression des tirs hors écran ou explosés
             for (int i = tirs.Count - 1; i >= 0; i--)
             {
                 tirs[i].Update();
@@ -129,12 +129,14 @@ namespace ShootEmUp
                     tirs.RemoveAt(i);
             }
 
+            // Suppression des barrières détruites
             for (int i = barrieres.Count - 1; i >= 0; i--)
             {
                 if (barrieres[i].Vie <= 0)
                     barrieres.RemoveAt(i);
             }
 
+            // Retrait des ennemis vaincus et attribution des points
             for (int i = ennemies.Count - 1; i >= 0; i--)
             {
                 if (ennemies[i].Dead)
@@ -144,11 +146,12 @@ namespace ShootEmUp
                 }
             }
 
+            // Traitement des collisions entre les tirs et les cibles (Joueur, Ennemis, Barrières, Tirs)
             foreach (Tir tir in tirs)
             {
                 if (MathHelpers.Distance(tir.X, tir.Y, _player.X, _player.Y) <= 50 && tir.type != Tir.Type.PLAYER)
                 {
-                    if(_player.Timeinvincible <= 0)
+                    if (_player.Timeinvincible <= 0)
                     {
                         _player.Vieplayer--;
                         _player.Timeinvincible = Player.FRAMEINVINCIBLE;
@@ -174,6 +177,7 @@ namespace ShootEmUp
                     }
                 }
 
+                // Annihilation mutuelle de tirs opposés
                 foreach (Tir tir2 in tirs)
                 {
                     if (tir != tir2)
@@ -210,11 +214,11 @@ namespace ShootEmUp
                 }
             }
 
-
+            // Déplacement des ennemis et dégâts de contact (Joueur & Barrières)
             foreach (Ennemie ennemie in ennemies)
             {
                 ennemie.Update(interval);
-                if(ennemie.Vieennemie <= 0)
+                if (ennemie.Vieennemie <= 0)
                     ennemie.Dead = true;
                 if (MathHelpers.Distance(ennemie.X, ennemie.Y, _player.X, _player.Y) <= 50)
                 {
@@ -236,7 +240,7 @@ namespace ShootEmUp
             }
         }
 
-        // Méthode appelée à chaque frame
+        // Exécuté à chaque tick de temporisateur
         private void NewFrame(object sender, EventArgs e)
         {
             Update(ticker.Interval);
@@ -244,22 +248,24 @@ namespace ShootEmUp
             Addshoot();
         }
 
+        // Capture des entrées clavier pour les déplacements
         public void gamespace_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
                 case Keys.Right:
                     _player.ChangeDirection(true);
-     
+
                     break;
 
                 case Keys.Left:
                     _player.ChangeDirection(false);
-    
+
                     break;
             }
         }
 
+        // Génération automatique des projectiles (joueur et ennemis alignés)
         public void Addshoot()
         {
             if (_player.Timenomove <= 0)

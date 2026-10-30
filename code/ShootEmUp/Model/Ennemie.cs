@@ -4,8 +4,11 @@ namespace ShootEmUp
 {
     public class Ennemie
     {
+        // Constantes de jeu
         private const int _COOLDOWN = 30;
         private const int SPEED = 10;
+
+        // Champs privés pour la position, l'état et les statistiques de l'ennemi
         private int _x;
         private int _y;
         private State _state;
@@ -15,6 +18,7 @@ namespace ShootEmUp
         private int _point;
         public static int Wave = 1;
 
+        // Propriétés publiques
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
         public int Vieennemie { get => _vieennemie; set => _vieennemie = value; }
@@ -25,9 +29,10 @@ namespace ShootEmUp
 
         public int Timecooldown { get => _timecooldown; set => _timecooldown = value; }
 
+        // Directions de déplacement possibles
         public enum State { RIGHT, LEFT }
 
-        // Constructeur
+        // Constructeur : Initialise les caractéristiques de l'ennemi
         public Ennemie(int x, int y)
         {
             X = x;
@@ -39,15 +44,17 @@ namespace ShootEmUp
             _point = 50;
         }
 
+        // Met à jour la logique, le tir, la position et les rebords de l'écran
         public void Update(int interval)
         {
             Timecooldown--;
             if (Timecooldown <= 0)
                 shoot();
+
             int space = GameSpace.WIDTH - Config.ENNEMIE_SIZE;
-            
-            
-            if(X >= space)
+
+            // Inversion de direction et descente aux bords de la zone
+            if (X >= space)
             {
                 _state = State.LEFT;
                 Y += 10;
@@ -58,6 +65,7 @@ namespace ShootEmUp
                 Y += 10;
             }
 
+            // Déplacement horizontal
             if (_state == State.RIGHT)
             {
                 X += 10;
@@ -72,15 +80,17 @@ namespace ShootEmUp
 
         }
 
+        // Dessine l'image appropriée selon le sens du déplacement
         public void Render(BufferedGraphics drawingSpace)
         {
             if (_state == State.RIGHT)
                 drawingSpace.Graphics.DrawImage(Resources.EnnmieMouvementDroite, X - Config.ENNEMIE_SIZE / 2, Y - Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
-            
+
             if (_state == State.LEFT)
                 drawingSpace.Graphics.DrawImage(Resources.EnnemieMouvementGauche, X - Config.ENNEMIE_SIZE / 2, Y - Config.ENNEMIE_SIZE / 2, Config.ENNEMIE_SIZE, Config.ENNEMIE_SIZE);
         }
 
+        // Génère un nouveau projectile ennemi
         public Tir shoot()
         {
             Tir tir = new Tir(X, Y + Config.ENNEMIE_SIZE / 2, Tir.Type.ENNEMIE);
