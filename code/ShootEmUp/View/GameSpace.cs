@@ -1,3 +1,5 @@
+using ShootEmUp.Properties;
+
 namespace ShootEmUp
 {
     // La classe gamespace représente le territoire au dessus duquel les player peuvent voler
@@ -39,6 +41,8 @@ namespace ShootEmUp
         private void Render()
         {
             gamespace.Graphics.Clear(Color.AliceBlue);
+
+            gamespace.Graphics.DrawImage(Resources.Fond, 0, 0, WIDTH, Height);
 
             _player.Render(gamespace);
 
