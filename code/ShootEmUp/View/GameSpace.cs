@@ -33,7 +33,7 @@ namespace ShootEmUp
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             gamespace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
-            this._player = player;
+            _player = player;
             this.barrieres = barrieres;
         }
 
